@@ -16,6 +16,24 @@ def myCourses(browser):
                 browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[4]/td/table/tbody/tr["+str(i)+ "]/td[3]").text)
 
 
+def attendace(browser):
+    print("\n Attendance:")
+    core = browser.find_elements_by_xpath("//table[@id='ctl00_ContentPlaceHolder1_GridCourses']/tbody/tr")
+    open_electives = browser.find_elements_by_xpath("//table[@id='ctl00_ContentPlaceHolder1_GridOpenCourses']/tbody/tr")
+    
+    for i in range(2, len(core)+1):
+        print(str(i-1)+ ". " +
+                browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr["+str(i)+"]/td[3]").text,
+                end='')
+
+        print("{0:>40s}".format(browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr["+str(i)+"]/td[8]/a").text))
+
+    for i in range(2, len(open_electives)+1):
+        print(str(i+len(core)-2)+". " +
+                browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[4]/td/table/tbody/tr["+str(i)+ "]/td[3]").text)
+
+
+
 
 def init():
     browser = webdriver.Firefox()
@@ -33,8 +51,9 @@ def init():
     print("Welcome, " + browser.find_element_by_id('ctl00_lblUser').text)
     browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[6]/td[2]/a').send_keys(Keys.RETURN)
     
-    time.sleep(2)
-    myCourses(browser)
+    time.sleep(3)
+    #myCourses(browser)
+    attendace(browser)
     browser.close()
 
 init()
