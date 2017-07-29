@@ -1,21 +1,25 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+import getpass
 
 
 def myFaculty(browser):
     browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[7]/td[2]/a').send_keys(Keys.RETURN)
     time.sleep(5)
-    print('\nMy Faculty')
+    print('\nMy Faculty\n')
     subs = browser.find_elements_by_xpath("//table[@id='tbl2']/tbody/tr")
     #if i == 4 or i == 9:
     #    continue
     for i in range(1, len(subs)):
         try:
-            print(browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table[1]/tbody/tr[4]/td/div/table/tbody/tr["+str(i)+"]/td/table/tbody/tr/td/table/tbody/tr/td[2]/span[2]").text)
+            print(str(i)+ ". ", end="")
+            print(browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table[1]/tbody/tr[4]/td/div/table/tbody/tr["+str(i)+"]/td/div/table/tbody/tr/td/b/span[2]").text)
+            print("   " + browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table[1]/tbody/tr[4]/td/div/table/tbody/tr["+str(i)+"]/td/table/tbody/tr/td/table/tbody/tr/td[2]/span[2]").text)
+            print("\n")
         except:
             pass
-    print(len(subs))
+    #print(len(subs))
 
 def myCourses(browser):
     browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[6]/td[2]/a').send_keys(Keys.RETURN)
@@ -42,7 +46,7 @@ def attendace(browser):
                 browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr["+str(i)+"]/td[3]").text,
                 end='')
 
-        print("{0:>40s}".format(browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr["+str(i)+"]/td[8]/a").text))
+        print(" - " + browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr["+str(i)+"]/td[8]/a").text)
 
     for i in range(2, len(open_electives)+1):
         print(str(i+len(core)-2)+". " +
@@ -52,6 +56,7 @@ def attendace(browser):
 
 
 def init():
+    choice = ''
     browser = webdriver.Chrome()
     browser.get("https://amizone.net/amizone/")
     browser.set_window_size(1124, 850)
@@ -59,9 +64,9 @@ def init():
     username = browser.find_element_by_xpath('//div[text()="User Name"]/following-sibling::input[not(@style="display:none;")]')
     password = browser.find_element_by_xpath('//div[text()="Password"]/following-sibling::input[not(@style="display:none;")]')
 
-    username.send_keys("uid")
-    password.send_keys("pwd")
-    time.sleep(5)
+    username.send_keys(input('Username: '))
+    password.send_keys(getpass.getpass('Password: '))
+
 
     browser.find_element_by_id('ImgBttn_Login').click()
     time.sleep(5)
@@ -70,8 +75,22 @@ def init():
     print("Welcome, " + browser.find_element_by_id('ctl00_lblUser').text)
     
     time.sleep(5)
-    #myCourses(browser)
-    myFaculty(browser)
-    #browser.close()
+    while choice.lower() != 'q':
+        print("\n1. My Courses\n2. Attendance\n3. My Faculty\n")
+        choice = input(': ')
+
+        if choice == '1':
+            myCourses(browser)
+        elif choice == '2':
+            attendace(browser)
+        elif choice == '3':
+            myFaculty(browser)
+        elif choice == 'q':
+            print('Logging out..')
+            browser.find_element_by_xpath("/html/body/form/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[1]/td/table/tbody/tr/td[2]/a").send_keys(Keys.RETURN)
+            break
+        else:
+            print('Please enter a valid choice\n')
+    browser.close()
 
 init()
