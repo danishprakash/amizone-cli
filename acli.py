@@ -18,13 +18,14 @@ def myFaculty(browser):
     subs = browser.find_elements_by_xpath("//table[@id='tbl2']/tbody/tr")
     #if i == 4 or i == 9:
     #    continue
-    for i in range(1, len(subs)):
+    for i in range(1, len(subs)+1):
         try:
             print(str(i)+ ". ", end="")
             print(browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table[1]/tbody/tr[4]/td/div/table/tbody/tr["+str(i)+"]/td/div/table/tbody/tr/td/b/span[2]").text)
             print("   " + browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table[1]/tbody/tr[4]/td/div/table/tbody/tr["+str(i)+"]/td/table/tbody/tr/td/table/tbody/tr/td[2]/span[2]").text)
             print("\n")
         except:
+            print("   <no-faculty-data-available>\n")
             pass
     #print(len(subs))
 
