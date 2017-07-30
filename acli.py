@@ -4,9 +4,16 @@ import time
 import getpass
 
 
+def myMentor(browser):
+    print("\nMy Mentor\n")
+    browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[8]/td[2]/a').send_keys(Keys.RETURN)
+    print("Name: "+browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/div[1]/table/tbody/tr[2]/td[2]/div/span").text)
+    print("Email: "+browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/div[1]/table/tbody/tr[3]/td[2]/div/span").text)
+    print("Phone: "+browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/div[1]/table/tbody/tr[4]/td[2]/div/span").text)
+
 def myFaculty(browser):
     browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[7]/td[2]/a').send_keys(Keys.RETURN)
-    time.sleep(5)
+    time.sleep(1)
     print('\nMy Faculty\n')
     subs = browser.find_elements_by_xpath("//table[@id='tbl2']/tbody/tr")
     #if i == 4 or i == 9:
@@ -69,14 +76,13 @@ def init():
 
 
     browser.find_element_by_id('ImgBttn_Login').click()
-    time.sleep(5)
+    time.sleep(1)
     browser.find_element_by_class_name('close').click()
-    time.sleep(5)
-    print("Welcome, " + browser.find_element_by_id('ctl00_lblUser').text)
+    print("\nWelcome, " + browser.find_element_by_id('ctl00_lblUser').text)
     
-    time.sleep(5)
-    while choice.lower() != 'q':
-        print("\n1. My Courses\n2. Attendance\n3. My Faculty\n")
+    time.sleep(1)
+    while True:
+        print("\n===== Menu =====\n\n1. My Courses\n2. Attendance\n3. My Faculty\n4. My Mentor\n")
         choice = input(': ')
 
         if choice == '1':
@@ -85,6 +91,8 @@ def init():
             attendace(browser)
         elif choice == '3':
             myFaculty(browser)
+        elif choice == '4':
+            myMentor(browser)
         elif choice == 'q':
             print('Logging out..')
             browser.find_element_by_xpath("/html/body/form/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[1]/td/table/tbody/tr/td[2]/a").send_keys(Keys.RETURN)
