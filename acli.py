@@ -1,9 +1,24 @@
+#!/usr/bin/python3
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import getpass
 
-
+def timetable(browser):
+    print("\nTimetable\n")
+    browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[5]/td[2]/a').send_keys(Keys.RETURN)
+    for i in range(1,8):
+        print(browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/table/tbody/tr['+str(i)+']/td[1]').text)
+        for j in range(1,12):
+            try:
+                if browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/table/tbody/tr['+str(i)+']/td['+str(j)+']/div').text != '':
+                    print(browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td['+str(j)+']').text[11:]+' - ',end='') 
+                    print(browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/table/tbody/tr['+str(i)+']/td['+str(j)+']/div').text)
+            except:
+                pass
+        print('\n')
+        
 def myMentor(browser):
     print("\nMy Mentor\n")
     browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[8]/td[2]/a').send_keys(Keys.RETURN)
@@ -83,7 +98,7 @@ def init():
     
     time.sleep(1)
     while True:
-        print("\n===== Menu =====\n\n1. My Courses\n2. Attendance\n3. My Faculty\n4. My Mentor\n")
+        print("\n===== Menu =====\n\n1. My Courses\n2. Attendance\n3. My Faculty\n4. My Mentor\n5. Timetable\n")
         choice = input(': ')
 
         if choice == '1':
@@ -94,6 +109,8 @@ def init():
             myFaculty(browser)
         elif choice == '4':
             myMentor(browser)
+        elif choice == '5':
+            timetable(browser)
         elif choice == 'q':
             print('Logging out..')
             browser.find_element_by_xpath("/html/body/form/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[1]/td/table/tbody/tr/td[2]/a").send_keys(Keys.RETURN)
