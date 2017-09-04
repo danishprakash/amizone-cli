@@ -66,14 +66,15 @@ def attendace(browser):
     
     for i in range(2, len(core)+1):
         print(str(i-1)+ ". " +
-                browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr["+str(i)+"]/td[3]").text,
+                browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr[" + str(i) + "]/td[3]").text,
                 end='')
 
-        print(" - " + browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr["+str(i)+"]/td[8]/a").text)
+        print(" - " + browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr[" + str(i) + "]/td[8]/a").text)
 
     for i in range(2, len(open_electives)+1):
         print(str(i+len(core)-2)+". " +
-                browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[4]/td/table/tbody/tr["+str(i)+ "]/td[3]").text)
+                browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[4]/td/table/tbody/tr[" + str(i) + "]/td[3]").text, end='')
+        print(" - " + browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[4]/td/table/tbody/tr[' + str(i) + ']/td[7]/a').text)
 
 
 
@@ -93,12 +94,12 @@ def init():
 
     browser.find_element_by_id('ImgBttn_Login').click()
     time.sleep(1)
-    browser.find_element_by_class_name('close').click()
+    browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/div[4]/div/div/div[1]/button').send_keys(Keys.RETURN)
     print("\nWelcome, " + browser.find_element_by_id('ctl00_lblUser').text)
     
     time.sleep(1)
     while True:
-        print("\n===== Menu =====\n\n1. My Courses\n2. Attendance\n3. My Faculty\n4. My Mentor\n5. Timetable\n")
+        print("\n===== Menu =====\n\n1. My Courses\n2. Attendance\n3. My Faculty\n4. My Mentor\n5. Timetable\n\nq: Log out & exit\n")
         choice = input(': ')
 
         if choice == '1':

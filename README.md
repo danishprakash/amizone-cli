@@ -23,4 +23,4 @@ $ python3 acli.py
 
 ### Todo
 - [x] Mentor page
-- [ ] Timetable
+- [x] Timetable
