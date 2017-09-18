@@ -78,7 +78,11 @@ def attendace(browser):
 
 
 
-
+'''
+    Fires up the browser, Asks for uid and pwd and clicks login, logs in (unsuccessfull login not handled right now) 
+    Closes popup(s), and displays the menu -> calls required function and loops until user quits explicitly (Ctrl-D or 'q') in which case, it logs out
+    and quits the browser.
+'''
 def init():
     choice = ''
     browser = webdriver.Chrome()
@@ -94,7 +98,11 @@ def init():
 
     browser.find_element_by_id('ImgBttn_Login').click()
     time.sleep(1)
-    browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/div[4]/div/div/div[1]/button').send_keys(Keys.RETURN)
+    
+    '''
+        Exits popup(s) that are sometimes displayed immediately after logging in.
+    '''
+#    browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/div[4]/div/div/div[1]/button').send_keys(Keys.RETURN)
     print("\nWelcome, " + browser.find_element_by_id('ctl00_lblUser').text)
     
     time.sleep(1)
