@@ -7,9 +7,10 @@
 
 ### Installation
 ```bash
-$ git clone https://github.com/prakashdanish/amizone-cli.git
-
-$ python3 acli.py
+> git clone https://github.com/prakashdanish/amizone-cli.git
+> cd amizone-cli
+> sudo ./install
+> acli.py
 ```
 
 ### Features
