@@ -31,8 +31,7 @@ def myFaculty(browser):
     time.sleep(1)
     print('\nMy Faculty\n')
     subs = browser.find_elements_by_xpath("//table[@id='tbl2']/tbody/tr")
-    #if i == 4 or i == 9:
-    #    continue
+
     for i in range(1, len(subs)+1):
         try:
             print(str(i)+ ". ", end="")
@@ -42,7 +41,6 @@ def myFaculty(browser):
         except:
             print("   <no-faculty-data-available>\n")
             pass
-    #print(len(subs))
 
 def myCourses(browser):
     browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[6]/td[2]/a').send_keys(Keys.RETURN)
