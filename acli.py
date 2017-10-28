@@ -31,8 +31,6 @@ def myFaculty(browser):
     time.sleep(1)
     print('\nMy Faculty\n')
     subs = browser.find_elements_by_xpath("//table[@id='tbl2']/tbody/tr")
-    #if i == 4 or i == 9:
-    #    continue
     for i in range(1, len(subs)+1):
         try:
             print(str(i)+ ". ", end="")
@@ -75,14 +73,6 @@ def attendace(browser):
         print(str(i+len(core)-2)+". " +
                 browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[4]/td/table/tbody/tr[" + str(i) + "]/td[3]").text, end='')
         print(" - " + browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[4]/td/table/tbody/tr[' + str(i) + ']/td[7]/a').text)
-
-
-
-'''
-    Fires up the browser, Asks for uid and pwd and clicks login, logs in (unsuccessfull login not handled right now) 
-    Closes popup(s), and displays the menu -> calls required function and loops until user quits explicitly (Ctrl-D or 'q') in which case, it logs out
-    and quits the browser.
-'''
 def init():
     choice = ''
     browser = webdriver.Chrome()
@@ -99,10 +89,6 @@ def init():
     browser.find_element_by_id('ImgBttn_Login').click()
     time.sleep(1)
     
-    '''
-        Exits popup(s) that are sometimes displayed immediately after logging in.
-    '''
-#    browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/div[4]/div/div/div[1]/button').send_keys(Keys.RETURN)
     print("\nWelcome, " + browser.find_element_by_id('ctl00_lblUser').text)
     
     time.sleep(1)
