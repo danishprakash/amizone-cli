@@ -13,12 +13,12 @@ def timetable(browser):
         for j in range(1,12):
             try:
                 if browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/table/tbody/tr['+str(i)+']/td['+str(j)+']/div').text != '':
-                    print(browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td['+str(j)+']').text[11:]+' - ',end='') 
+                    print(browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td['+str(j)+']').text[11:]+' - ',end='')
                     print(browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[2]/td/table/tbody/tr['+str(i)+']/td['+str(j)+']/div').text)
             except:
                 pass
         print('\n')
-        
+
 def myMentor(browser):
     print("\nMy Mentor\n")
     browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[8]/td[2]/a').send_keys(Keys.RETURN)
@@ -31,8 +31,6 @@ def myFaculty(browser):
     time.sleep(1)
     print('\nMy Faculty\n')
     subs = browser.find_elements_by_xpath("//table[@id='tbl2']/tbody/tr")
-    #if i == 4 or i == 9:
-    #    continue
     for i in range(1, len(subs)+1):
         try:
             print(str(i)+ ". ", end="")
@@ -42,14 +40,12 @@ def myFaculty(browser):
         except:
             print("   <no-faculty-data-available>\n")
             pass
-    #print(len(subs))
 
 def myCourses(browser):
     browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[6]/td[2]/a').send_keys(Keys.RETURN)
     core = browser.find_elements_by_xpath("//table[@id='ctl00_ContentPlaceHolder1_GridCourses']/tbody/tr")
     open_electives = browser.find_elements_by_xpath("//table[@id='ctl00_ContentPlaceHolder1_GridOpenCourses']/tbody/tr")
 
-    #print(len(core), len(open_electives)
     print("\nMy Courses")
     for i in range(2, len(core)+1):
         print(str(i-1)+". " + browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr["+str(i) + "]/td[3]").text)
@@ -63,7 +59,7 @@ def attendace(browser):
     browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[1]/table/tbody/tr[6]/td[2]/a').send_keys(Keys.RETURN)
     core = browser.find_elements_by_xpath("//table[@id='ctl00_ContentPlaceHolder1_GridCourses']/tbody/tr")
     open_electives = browser.find_elements_by_xpath("//table[@id='ctl00_ContentPlaceHolder1_GridOpenCourses']/tbody/tr")
-    
+
     for i in range(2, len(core)+1):
         print(str(i-1)+ ". " +
                 browser.find_element_by_xpath("/html/body/form/table/tbody/tr[2]/td[3]/div/table/tbody/tr[3]/td/table/tbody/tr[" + str(i) + "]/td[3]").text,
@@ -79,7 +75,7 @@ def attendace(browser):
 
 
 '''
-    Fires up the browser, Asks for uid and pwd and clicks login, logs in (unsuccessfull login not handled right now) 
+    Fires up the browser, Asks for uid and pwd and clicks login, logs in (unsuccessfull login not handled right now)
     Closes popup(s), and displays the menu -> calls required function and loops until user quits explicitly (Ctrl-D or 'q') in which case, it logs out
     and quits the browser.
 '''
@@ -98,13 +94,12 @@ def init():
 
     browser.find_element_by_id('ImgBttn_Login').click()
     time.sleep(1)
-    
+
     '''
         Exits popup(s) that are sometimes displayed immediately after logging in.
     '''
-#    browser.find_element_by_xpath('/html/body/form/table/tbody/tr[2]/td[3]/div/div[4]/div/div/div[1]/button').send_keys(Keys.RETURN)
     print("\nWelcome, " + browser.find_element_by_id('ctl00_lblUser').text)
-    
+
     time.sleep(1)
     while True:
         print("\n===== Menu =====\n\n1. My Courses\n2. Attendance\n3. My Faculty\n4. My Mentor\n5. Timetable\n\nq: Log out & exit\n")
